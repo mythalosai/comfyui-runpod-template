@@ -1,4 +1,4 @@
-FROM runpod/pytorch:2.1.0-py3.10-cuda12.1
+FROM runpod/pytorch:2.1.2-py3.10-cuda12.1.1-devel
 
 RUN apt-get update && apt-get install -y git wget
 
