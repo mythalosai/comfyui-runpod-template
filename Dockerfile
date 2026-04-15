@@ -1,4 +1,4 @@
-FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
+FROM nvidia/cuda:12.8.0-cudnn9-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -19,17 +19,20 @@ RUN apt-get update && apt-get install -y \
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # =========================
-# 🔽 PYTHON + TORCH
+# 🔽 PYTHON + TORCH (RTX 50xx FIX)
 # =========================
 
 RUN pip install --upgrade pip
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+
+# 🔥 PyTorch NIGHTLY (soporte RTX 5090 / sm_120)
+RUN pip install --pre torch torchvision torchaudio \
+    --index-url https://download.pytorch.org/whl/nightly/cu128
 
 # Fix OpenCV
 RUN pip install opencv-python
 
 # Extra deps (evita errores en nodos)
-RUN pip install einops transformers accelerate
+RUN pip install einops transformers accelerate safetensors
 
 # =========================
 # 🔽 COMFYUI
