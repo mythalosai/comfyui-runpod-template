@@ -34,6 +34,7 @@ RUN pip install \
     pillow \
     imageio \
     imageio-ffmpeg \
+    piexif \
     einops \
     transformers \
     accelerate \
