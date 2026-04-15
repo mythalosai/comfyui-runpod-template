@@ -28,11 +28,16 @@ RUN pip install --upgrade pip
 RUN pip install --pre torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/nightly/cu128
 
-# Fix OpenCV
-RUN pip install opencv-python
-
-# Extra deps (evita errores en nodos)
-RUN pip install einops transformers accelerate safetensors
+RUN pip install \
+    opencv-python \
+    scikit-image \
+    pillow \
+    imageio \
+    imageio-ffmpeg \
+    einops \
+    transformers \
+    accelerate \
+    safetensors
 
 # =========================
 # 🔽 COMFYUI
