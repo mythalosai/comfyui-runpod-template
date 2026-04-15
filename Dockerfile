@@ -28,6 +28,10 @@ RUN pip install --upgrade pip
 RUN pip install --pre torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/nightly/cu128
 
+# =========================
+# 🔽 CORE DEPENDENCIES (IMPACT PACK FIX)
+# =========================
+
 RUN pip install \
     opencv-python \
     scikit-image \
@@ -35,10 +39,15 @@ RUN pip install \
     imageio \
     imageio-ffmpeg \
     piexif \
+    scipy \
+    tifffile \
     einops \
     transformers \
     accelerate \
     safetensors
+
+# 🔥 Segment Anything (necesario para Impact Pack)
+RUN pip install git+https://github.com/facebookresearch/segment-anything.git
 
 # =========================
 # 🔽 COMFYUI
