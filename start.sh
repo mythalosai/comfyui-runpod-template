@@ -15,6 +15,7 @@ mkdir -p models/vae
 mkdir -p models/loras
 mkdir -p models/text_encoders
 mkdir -p models/upscale_models
+mkdir -p models/latent_upscale_models
 mkdir -p models/diffusion_models
 
 # =========================
@@ -88,14 +89,18 @@ if [ ! -f models/vae/zimage_vae.safetensors ]; then
 fi
 
 # =========================
-# 🔽 UPSCALERS
+# 🔽 LATENT UPSCALER
 # =========================
 
-if [ ! -f models/upscale_models/ltx_upscaler_x2.safetensors ]; then
-    echo "Downloading LTX Upscaler..."
-    wget -c -O models/upscale_models/ltx_upscaler_x2.safetensors \
+if [ ! -f models/latent_upscale_models/ltx_upscaler_x2.safetensors ]; then
+    echo "Downloading LTX Latent Upscaler..."
+    wget -c -O models/latent_upscale_models/ltx_upscaler_x2.safetensors \
     https://huggingface.co/Lightricks/LTX-2.3/resolve/main/ltx-2.3-spatial-upscaler-x2-1.0.safetensors
 fi
+
+# =========================
+# 🔽 NORMAL UPSCALERS
+# =========================
 
 if [ ! -f models/upscale_models/clear_reality.pth ]; then
     echo "Downloading ClearReality Upscaler..."
@@ -117,6 +122,12 @@ if [ ! -f models/loras/qwen_multiangle.safetensors ]; then
     echo "Downloading Multi-Angle LoRA..."
     wget -c -O models/loras/qwen_multiangle.safetensors \
     https://huggingface.co/fal/Qwen-Image-Edit-2511-Multiple-Angles-LoRA/resolve/main/qwen-image-edit-2511-multiple-angles-lora.safetensors
+fi
+
+if [ ! -f models/loras/ltx_2.3_distilled_384.safetensors ]; then
+    echo "Downloading LTX Distilled LoRA 384..."
+    wget -c -O models/loras/ltx_2.3_distilled_384.safetensors \
+    https://huggingface.co/Lightricks/LTX-2.3/resolve/main/ltx-2.3-22b-distilled-lora-384.safetensors
 fi
 
 if [ ! -f models/loras/fruitisland_qwen.safetensors ]; then
