@@ -2,6 +2,10 @@ FROM nvidia/cuda:12.1.1-cudnn8-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# =========================
+# 🔽 SYSTEM DEPENDENCIES
+# =========================
+
 RUN apt-get update && apt-get install -y \
     git \
     wget \
@@ -14,18 +18,26 @@ RUN apt-get update && apt-get install -y \
 # Set python
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# Install PyTorch
+# =========================
+# 🔽 PYTHON + TORCH
+# =========================
+
 RUN pip install --upgrade pip
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 # Fix OpenCV
 RUN pip install opencv-python
 
-# Clone ComfyUI
+# Extra deps (evita errores en nodos)
+RUN pip install einops transformers accelerate
+
+# =========================
+# 🔽 COMFYUI
+# =========================
+
 WORKDIR /workspace
 RUN git clone https://github.com/comfyanonymous/ComfyUI
 
-# Install requirements
 WORKDIR /workspace/ComfyUI
 RUN pip install -r requirements.txt
 
@@ -40,8 +52,10 @@ RUN git clone https://github.com/ltdrdata/ComfyUI-Impact-Pack
 RUN git clone https://github.com/rgthree/rgthree-comfy
 RUN git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite
 RUN git clone https://github.com/kijai/ComfyUI-KJNodes
-RUN git clone https://github.com/TerryJia/Qwen-Multiangle-Camera
+RUN git clone https://github.com/jtydhr88/ComfyUI-qwenmultiangle.git
 
+# =========================
+# 🔽 FINAL SETUP
 # =========================
 
 WORKDIR /workspace/ComfyUI
